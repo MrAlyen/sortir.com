@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\UserRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
@@ -57,9 +59,26 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     private $telephone;
 
     /**
-     * @ORM\Column(type="smallint")
+     * @ORM\ManyToOne(targetEntity=Campus::class, inversedBy="User")
      */
     private $campus;
+
+    /**
+     * @ORM\ManyToOne(targetEntity=Sortie::class, inversedBy="organisateur")
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $organisateur;
+
+    /**
+     * @ORM\ManyToMany(targetEntity=Sortie::class, mappedBy="estInscrit")
+     */
+    private $estInscrit;
+
+    public function __construct()
+    {
+        $this->estInscrit = new ArrayCollection();
+    }
+
 
     public function getId(): ?int
     {
@@ -206,6 +225,45 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     public function setCampus(int $campus): self
     {
         $this->campus = $campus;
+
+        return $this;
+    }
+
+    public function getOrganisateur(): ?Sortie
+    {
+        return $this->organisateur;
+    }
+
+    public function setOrganisateur(?Sortie $organisateur): self
+    {
+        $this->organisateur = $organisateur;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Sortie[]
+     */
+    public function getEstInscrit(): Collection
+    {
+        return $this->estInscrit;
+    }
+
+    public function addEstInscrit(Sortie $estInscrit): self
+    {
+        if (!$this->estInscrit->contains($estInscrit)) {
+            $this->estInscrit[] = $estInscrit;
+            $estInscrit->addEstInscrit($this);
+        }
+
+        return $this;
+    }
+
+    public function removeEstInscrit(Sortie $estInscrit): self
+    {
+        if ($this->estInscrit->removeElement($estInscrit)) {
+            $estInscrit->removeEstInscrit($this);
+        }
 
         return $this;
     }
