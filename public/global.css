@@ -1,0 +1,42 @@
+body{
+    background-color: #B9B9B9;
+    margin: 0%;
+    font-family: Helvetica, Arial, sans-serif;
+    color: black;
+    font-size: 15px;
+    line-height: 15px;
+}
+main{
+    background-color: #CECECE;
+    padding-top: 1px;
+    padding-bottom: 1px;
+}
+li{
+    margin-right: 20px;
+}
+ul {
+    list-style-type : none;
+}
+.space-between{
+    display:flex;
+    justify-content: space-between;
+}
+.row{
+    display: flex;
+    flex-direction: row;
+}
+.logo{
+    width: 200px;
+    height: 67px;
+}
+.logo-display:hover {
+    display: none;
+}
+.logo:hover{
+    background: url("img/logoAnimLoopXXS.gif");
+}
+@media only screen and (min-width: 800px) {
+    body {
+        font-size: 20px;
+    }
+}

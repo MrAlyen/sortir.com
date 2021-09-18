@@ -5,18 +5,19 @@
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>{% block title %}Sortir.com{% endblock %}</title>
-        <link rel="stylesheet"href="global.css">
+        <link rel="stylesheet" href="{{ asset('global.css') }}">
     </head>
     <body>
-        <header>
+        <header class="space-between">
             {% block delheader %}
-            <img src="![](../public/img/logoAnimLoopXXS.gif)">
+            <a href="{{ path('main_accueil') }}"><div class="logo"><img src="{{ asset('img/logoAnim1.gif') }}" class="logo-display" width="200px"></div></a>
             <nav>
-                <ul>
-                    <li><a href="{{ path('_profiler_home') }}">Accueil</a></li>
-                    <li><a href="">Mon profil</a></li>
-                    <li><a href="{{ path('app_logout') }}">Se déconnecter</a></li>
-                    <li></li>
+                <ul class="row">
+                    <li><a href="" title="modifier supprimer ajouter une ou des villes"> Villes </a></li>
+                    <li><a href="" title="modifier supprimer ajouter une ou des campus"> Campus </a></li>
+                    <li><a href="{{ path('main_accueil') }}" title="accéder a la page d'accueil du site"> Accueil </a></li>
+                    <li><a href="" title="modifier mon profile"> Mon profil </a></li>
+                    <li><a href="{{ path('app_logout') }}" title="Se déconnecter"> Se déconnecter </a></li>
                 </ul>
             </nav>
             {% endblock %}
