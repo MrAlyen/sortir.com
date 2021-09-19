@@ -2,7 +2,7 @@
 
 {% block title %}S'identifier{% endblock %}
 
-{% block delheader %}<img src="{{ asset('img/logoAnim1.gif') }}" width="600px">{% endblock %}
+{% block delheader %}<header class="center"><img src="{{ asset('img/logoAnim1.gif') }}" width="600px"></header>{% endblock %}
 
 {% block body %}
 <form method="post">
@@ -15,7 +15,7 @@
             You are logged in as {{ app.user.username }}, <a href="{{ path('app_logout') }}">Logout</a>
         </div>
     {% endif %}
-    <div>
+    <div class="center">
         <label for="inputEmail">Identifiant:</label>
         <input type="email" value="{{ last_username }}" name="email" id="inputEmail" class="form-control" autocomplete="email" required autofocus>
         <label for="inputPassword">Mot De Passe:</label>

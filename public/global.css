@@ -17,6 +17,10 @@ li{
 ul {
     list-style-type : none;
 }
+.center{
+    display: flex;
+    justify-content: center;
+}
 .space-between{
     display:flex;
     justify-content: space-between;
