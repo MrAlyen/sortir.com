@@ -15,4 +15,11 @@ class MainController extends AbstractController
     {
         return $this->render('main/accueil.html.twig');
     }
+    /**
+     * @Route("/creer_sortie", name="main_creer_sortie")
+     */
+    public function creer_sortie(): Response
+    {
+        return $this->render('main/creer_sortie.html.twig');
+    }
 }
