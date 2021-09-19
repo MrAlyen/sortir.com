@@ -3,8 +3,12 @@
 namespace App\Form;
 
 use App\Entity\User;
+use Doctrine\DBAL\Types\TextType;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
+use Symfony\Component\Form\Extension\Core\Type\EmailType;
 use Symfony\Component\Form\Extension\Core\Type\PasswordType;
+use Symfony\Component\Form\Extension\Core\Type\TelType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Validator\Constraints\Length;
@@ -15,14 +19,25 @@ class RegistrationFormType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('pseudo')
-            ->add('prenom')
-            ->add('nom')
-            ->add('telephone')
-            ->add('email')
+            ->add('pseudo', \Symfony\Component\Form\Extension\Core\Type\TextType::class, [
+                'label' => 'Pseudo: '
+            ])
+            ->add('prenom', \Symfony\Component\Form\Extension\Core\Type\TextType::class, [
+                'label' => 'Prenom: '
+            ])
+            ->add('nom', \Symfony\Component\Form\Extension\Core\Type\TextType::class, [
+                'label' => 'Nom: '
+            ])
+            ->add('telephone', TelType::class, [
+                'label' => 'Téléphone: '
+            ])
+            ->add('email', EmailType::class, [
+                'label' => 'Email: '
+            ])
             ->add('plainPassword', PasswordType::class, [
                 // instead of being set onto the object directly,
                 // this is read and encoded in the controller
+                'label' => 'Mot de passe: ',
                 'mapped' => false,
                 'attr' => ['autocomplete' => 'new-password'],
                 'constraints' => [
@@ -37,7 +52,9 @@ class RegistrationFormType extends AbstractType
                     ]),
                 ],
             ])
-            ->add('campus')
+            ->add('campus', ChoiceType::class, [
+                'label' => 'Campus: '
+            ])
         ;
     }
 
