@@ -32,7 +32,7 @@ class Sortie
     /**
      * @ORM\Column(type="integer")
      */
-    private $Durée;
+    private $Duree;
 
     /**
      * @ORM\Column(type="datetime")
@@ -106,14 +106,14 @@ class Sortie
         return $this;
     }
 
-    public function getDurée(): ?int
+    public function getDuree(): ?int
     {
-        return $this->Durée;
+        return $this->Duree;
     }
 
-    public function setDurée(int $Durée): self
+    public function setDuree(int $Duree): self
     {
-        $this->Durée = $Durée;
+        $this->Duree = $Duree;
 
         return $this;
     }
