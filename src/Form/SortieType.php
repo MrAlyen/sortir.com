@@ -2,7 +2,10 @@
 
 namespace App\Form;
 
+use App\Entity\Campus;
+use App\Entity\Lieu;
 use App\Entity\Sortie;
+use App\Entity\Ville;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
@@ -18,6 +21,8 @@ class SortieType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
+        $lieu = new Lieu;
+
         $builder
             ->add('nom', TextType::class, [
                 'label' => 'Nom de la sortie: '
@@ -41,28 +46,8 @@ class SortieType extends AbstractType
             ->add('infosSortie', TextareaType::class, [
                 'label' => 'Description et infos: '
             ])
-            /*->add('Campus', EntityType::createChoiceLabel(), [
-                'label' => 'Campus: '
-            ])
-            ->add('Ville', EntityType::createChoiceLabel(), [
-                'label' => 'Ville: '
-            ])
-            ->add('lieu', ChoiceType::class, [
-                'label' => 'Lieu: '
-            ])
-            ->add('Rue', ChoiceType::class, [
-                'label' => 'Rue: '
-            ])
-            ->add('code_postal', ChoiceType::class, [
-                'label' => 'Code postal: '
-            ])
-            ->add('latitude', ChoiceType::class, [
-                'label' => 'latitude: '
-            ])
-            ->add('longitude', ChoiceType::class, [
-                'label' => 'longitude: '
-            ])*/
-        ;
+
+            ;
     }
 
     public function configureOptions(OptionsResolver $resolver)

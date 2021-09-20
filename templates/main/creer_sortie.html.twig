@@ -7,9 +7,16 @@
 
     {{ form_start(sortie) }}
         {{ form_widget(sortie) }}
-            <button type="" class="btn">Eregistrer</button>
-            <button type="submit" class="btn">Publier la sortie</button>
-            <button type="" class="btn">Annuler</button>
+            {{ form_start(ville) }}
+                {{ form_widget(ville) }}
+                    {{ form_start(lieu) }}
+                        {{ form_widget(lieu) }}
+
+                            <button type="" class="btn">Eregistrer</button>
+                             <button type="submit" class="btn">Publier la sortie</button>
+                             <button type="" class="btn">Annuler</button>
+                    {{ form_end(lieu) }}
+            {{ form_end(ville) }}
     {{ form_end(sortie) }}
 {% endblock %}
 
