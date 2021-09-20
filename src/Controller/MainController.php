@@ -11,14 +11,14 @@ use App\Entity\Sortie;
 class MainController extends AbstractController
 {
     /**
-     * @Route("/", name="main_accueil")
+     * @Route("/sortir", name="main_accueil")
      */
     public function accueil(): Response
     {
         return $this->render('main/accueil.html.twig');
     }
     /**
-     * @Route("/creer_sortie", name="main_creer_sortie")
+     * @Route("/sortir/creer_sortie", name="main_creer_sortie")
      */
     public function creer_sortie(): Response
     {
