@@ -2,9 +2,11 @@
 
 namespace App\Controller;
 
+use App\Form\SortieType;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use App\Entity\Sortie;
 
 class MainController extends AbstractController
 {
@@ -20,6 +22,13 @@ class MainController extends AbstractController
      */
     public function creer_sortie(): Response
     {
-        return $this->render('main/creer_sortie.html.twig');
+        $sortie = new Sortie();
+        $sortieform = $this->createForm(SortieType::class, $sortie);
+
+        //TODO traiter le formulaire
+
+        return $this->render('main/creer_sortie.html.twig', [
+            'sortie' => $sortieform->createView()
+        ]);
     }
 }

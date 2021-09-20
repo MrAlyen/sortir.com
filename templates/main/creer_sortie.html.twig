@@ -1,2 +1,15 @@
 {% extends 'base.html.twig' %}
 
+{% block title %}enregistrer un utilisateur{% endblock %}
+
+{% block body %}
+    <h1>Créer une sortie</h1>
+
+    {{ form_start(sortie) }}
+        {{ form_widget(sortie) }}
+            <button type="" class="btn">Eregistrer</button>
+            <button type="submit" class="btn">Publier la sortie</button>
+            <button type="" class="btn">Annuler</button>
+    {{ form_end(sortie) }}
+{% endblock %}
+
