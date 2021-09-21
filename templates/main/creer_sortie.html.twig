@@ -9,12 +9,14 @@
         {{ form_widget(sortie) }}
             {{ form_start(ville) }}
                 {{ form_widget(ville) }}
+                        {#  1 recup le choix de ville de user
+                            2 faire requete sql#}
                     {{ form_start(lieu) }}
                         {{ form_widget(lieu) }}
 
-                            <button type="" class="btn">Eregistrer</button>
-                             <button type="submit" class="btn">Publier la sortie</button>
-                             <button type="" class="btn">Annuler</button>
+                            <button type="button" class="btn">Enregistrer</button>
+                            <button type="submit" class="btn">Publier la sortie</button>
+                            <button type="reset" class="btn">Annuler</button>
                     {{ form_end(lieu) }}
             {{ form_end(ville) }}
     {{ form_end(sortie) }}
