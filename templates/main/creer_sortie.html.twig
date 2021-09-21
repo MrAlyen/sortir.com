@@ -7,18 +7,42 @@
 
     {{ form_start(sortie) }}
         {{ form_widget(sortie) }}
-            {{ form_start(ville) }}
-                {{ form_widget(ville) }}
-                        {#  1 recup le choix de ville de user
-                            2 faire requete sql#}
-                    {{ form_start(lieu) }}
-                        {{ form_widget(lieu) }}
-
-                            <button type="button" class="btn">Enregistrer</button>
-                            <button type="submit" class="btn">Publier la sortie</button>
-                            <button type="reset" class="btn">Annuler</button>
-                    {{ form_end(lieu) }}
-            {{ form_end(ville) }}
+            Rue : <br>
+            Code postal :<br>
+            Latitude:<br>
+            Longitude:<br>
+            <br><br>
+            <button type="button" class="btn">Enregistrer</button>
+            <button type="submit" class="btn">Publier la sortie</button>
+            <button type="reset" class="btn">Annuler</button>
     {{ form_end(sortie) }}
 {% endblock %}
 
+{% block javascripts %}
+    <script>
+        window.onload = () => {
+           let ville = document.querySelector("#sortie_Ville");
+
+           ville.addEventListener("change",function(){
+               let form = this.closest("form");
+               let data = this.name+ "=" + this.value;
+
+               fetch(form.action,{
+                  method:form.getAttribute("method"),
+                   body:data,
+                   headers:{
+                      "Content-type": "application/x-www-form-urlencoded; charset:UTF-8"
+                   }
+               })
+               .then(response=>response.text())
+               .then(html=>{
+                   let content = document.createElement("html");
+                   content.innerHTML = html;
+                   let lieuSelect = content.querySelector("#sortie_lieu");
+                   document.querySelector("#sortie_lieu").replaceWith(lieuSelect);
+               })
+           });
+        }
+
+    </script>
+{% endblock %}

@@ -32,36 +32,20 @@ class MainController extends AbstractController
 
         $sortie = new Sortie();
         $sortieform = $this->createForm(SortieType::class, $sortie);
-        $lieu = new Lieu();
-        $lieuform = $this->createForm(LieuType::class,$lieu);
-        $ville = new Ville();
-        $villeform = $this->createForm(VilleType::class,$ville);
 
         $sortieform->handleRequest($request);
         if ($sortieform->isSubmitted() && $sortieform->isValid()){
-
-            $dateInscription = $sortie->getDateLimiteInscription();
-            $etatSortie = $tools->majEtatSortieFormulaire($dateInscription);
-            $sortie->setEtats($etatSortie);
-
-            $nomVille = $ville;
-            $nomLieu = $lieu->getNom();
-            $idLieu = $tools->majNomLieuId($nomLieu);
-            $sortie->setLieu($idLieu);
 
             $entityManager->persist($sortie);
             $entityManager->flush();
             $this->addFlash('sucess','Votre sortie est bien enregistré');
             return $this->redirectToRoute('main_accueil');
-
         }
-
 
 
         return $this->render('main/creer_sortie.html.twig', [
             'sortie' => $sortieform->createView(),
-            'lieu' => $lieuform->createView(),
-            'ville' => $villeform->createView(),
+
         ]);
     }
 }
