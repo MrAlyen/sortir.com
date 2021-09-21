@@ -1,0 +1,15 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+
+<h1>Ajout d'utilisateur</h1>
+
+
+<div>
+    <h2>Importer des utilisateurs depuis un fichier csv</h2>
+    {{ form_start(csvForm) }}
+        {{ form_widget(csvForm) }}
+    {{ form_end(csvForm) }}
+</div>
+
+{% endblock %}
