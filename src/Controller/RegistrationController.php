@@ -14,6 +14,8 @@ use Symfony\Component\Serializer\Normalizer\ObjectNormalizer;
 use Symfony\Component\Serializer\Serializer;
 use Symfony\Component\Serializer\Encoder\CsvEncoder;
 
+use App\Repository\UserRepository;
+
 class RegistrationController extends AbstractController
 {
     /**
@@ -50,9 +52,12 @@ class RegistrationController extends AbstractController
     /**
      * @Route("/admin/ajoutUtilisateur", name="app_admin_ajout_utilisateur")
      */
-    public function ajoutUtilisateur(Request $request){
+    public function ajoutUtilisateur(Request $request, UserRepository $userRepository){
         $form = $this->createForm(ImportCsvFormType::class);
         $form->handleRequest($request);
+
+        $newUserNbr = 0;
+        $updateUser = 0;
 
         if($form->isSubmitted() && $form->isValid()){
             $file = $form->get('file')->getData();
@@ -67,12 +72,46 @@ class RegistrationController extends AbstractController
             $fileString = file_get_contents($file);
             $data = $serializer->decode($fileString, $fileExtension);
 
-            dd($data);
+            
+
+            foreach($data as $newUser){
+                
+
+                if(!$user = $userRepository->findOneBy(['email' => $newUser['email']])){
+                    $user = new User();
+                    $newUserNbr++;
+                } else {
+                    $updateUser++;
+                }
+
+                $user->setEmail($newUser['email']);
+                if($newUser['admin']){
+                    $user->setRoles('["ROLE_ADMIN"]');
+                }
+
+                $user->setPassword(
+                    $passwordEncoder->encodePassword(
+                        $user,
+                        $newUser['password']
+                    )
+                );
+
+                $user->setPseudo($newUser['pseudo']);
+                $user->setPrenom($newUser['prenom']);
+                $user->setNom($newUser['nom']);
+                $user->setTelephone($newUser['telephone']);
+
+                $entityManager = $this->getDoctrine()->getManager();
+                $entityManager->persist($user);
+                $entityManager->flush();
+            }
         }
         
         
         return $this->render('admin/ajoutUtilisateur.html.twig', [
             'csvForm' => $form->createView(),
+            'newUser' => $newUserNbr,
+            'updateUser' => $updateUser,
         ]);
     }
 }

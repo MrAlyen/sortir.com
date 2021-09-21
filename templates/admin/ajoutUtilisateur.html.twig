@@ -10,6 +10,13 @@
     {{ form_start(csvForm) }}
         {{ form_widget(csvForm) }}
     {{ form_end(csvForm) }}
+    
+    {% if newUser > 0  or updateUser > 0 %}
+    <div>
+        <p>Utilisateurs ajoutés: {{ newUser }}</p>
+        <p>Utilisateurs mise à jours: {{ updateUser }}</P>
+    </div>
+    {% endif %}
 </div>
 
 {% endblock %}
