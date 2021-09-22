@@ -7,11 +7,6 @@
 
     {{ form_start(sortie) }}
         {{ form_widget(sortie) }}
-            Rue : <br>
-            Code postal :<br>
-            Latitude:<br>
-            Longitude:<br>
-            <br><br>
             <button type="button" class="btn">Enregistrer</button>
             <button type="submit" class="btn">Publier la sortie</button>
             <button type="reset" class="btn">Annuler</button>
@@ -19,7 +14,7 @@
 {% endblock %}
 
 {% block javascripts %}
-    <script>
+    {#  <script>
         window.onload = () => {
            let ville = document.querySelector("#sortie_Ville");
 
@@ -44,5 +39,5 @@
            });
         }
 
-    </script>
+    </script>#}
 {% endblock %}
