@@ -30,7 +30,7 @@ class SortieType extends AbstractType
             ->add('nom', TextType::class, [
                 'label' => 'Nom de la sortie: '
             ])
-            /* ->add('dateHeureDebut', DateTimeType::class, [
+             ->add('dateHeureDebut', DateTimeType::class, [
                  'label' => 'Date et heure de la sortie: ',
                  'html5' => 'true',
                  'widget' => 'single_text',
@@ -39,7 +39,7 @@ class SortieType extends AbstractType
                  'label' => 'Date limite d\'inscription: ',
                  'html5' => 'true',
                  'widget' => 'single_text',
-             ])*/
+             ])
             ->add('nbInscriptionsMax', IntegerType::class, [
                 'label' => 'Nombre de place: '
             ])
@@ -49,7 +49,7 @@ class SortieType extends AbstractType
             ->add('infosSortie', TextareaType::class, [
                 'label' => 'Description et infos: '
             ])
-            ->add('Ville', EntityType::class, [
+            ->add('ville', EntityType::class, [
                 'class' => Ville::class,
                 'choice_label' => 'nom',
                 'placeholder' => 'Ville',
@@ -57,78 +57,102 @@ class SortieType extends AbstractType
                 'mapped' => false,
                 'required' => false
             ])
-            ->add('lieu', ChoiceType::class, [
-                'placeholder' => 'lieu (choisir une ville)',
-                'required' => false
-            ])/*->add('lieu:rue', ChoiceType::class,[
-                'placeholder' => 'rue (choisir un lieu)',
-                'required'=>false
-            ])
-           ->add('latitude', ChoiceType::class,[
-                'placeholder' => 'latitude (choisir une lieu)',
-                'required'=>false
-            ])
-            ->add('longitude', ChoiceType::class,[
-                'placeholder' => 'longitude (choisir une lieu)',
-                'required'=>false
-            ])*/
-        ;
-
-        $formModifierLieu = function (FormInterface $form, Ville $ville = null) {
-            $lieu = (null === $ville) ? [] : $ville->getLieu();
-
-            $form->add('lieu', EntityType::class, [
+            ->add('lieu', EntityType::class, [
                 'class' => Lieu::class,
-                'choices' => $lieu,
                 'placeholder' => 'lieu (choisir une ville)',
                 'choice_label' => 'nom',
+                'label' => 'Lieu : ',
                 'required' => false
-            ]);
-        };
-
-        $builder->get('Ville')->addEventListener(
-            FormEvents::POST_SUBMIT,
-            function (FormEvent $event) use ($formModifierLieu) {
-                $ville = $event->getForm()->getData();
-                $formModifierLieu($event->getForm()->getParent(), $ville);
-
-            });
-
-      /* $formModifierDetails = function (FormInterface $form, Lieu $lieu = null){
-           $rue = (null === $lieu)? [] : $lieu->getRue();
-           $latitude = (null === $lieu)? [] : $lieu->getLatitude();
-           $longitude = (null === $lieu)? [] : $lieu->getLongitude();
-           $form->add('rue', EntityType::class,[
+            ])
+            ->add('code_postal', EntityType::class, [
+                'class' => Ville::class,
+                'choice_label' => 'codePostal',
+                'placeholder' => 'code postal (choisir un lieu)',
+                'label' => 'Code postal : ',
+                'mapped' => false,
+                'required' => false
+            ])
+            ->add('rue', EntityType::class,[
+                'class' => Lieu::class,
+                'placeholder'=>'rue (choisir un lieu)',
+                'choice_label' => 'rue',
+                'label' => 'Rue : ',
+                'mapped' => false,
+                'required'=>false
+            ])
+           ->add('latitude', EntityType::class,[
                'class' => Lieu::class,
-               'choices'=> $rue,
-               'placeholder'=>'rue (choisir un lieu)',
-               'choice_label' => 'rue',
-               'required'=>false
-           ]);
-           $form->add('latitude', EntityType::class,[
-               'class' => Lieu::class,
-               'choices'=> $latitude,
                'placeholder'=>'latitude (choisir un lieu)',
                'choice_label' => 'latitude',
+               'label' => 'latitude : ',
+               'mapped' => false,
                'required'=>false
-           ]);
-           $form->add('longitude', EntityType::class,[
+           ])
+           ->add('longitude', EntityType::class,[
                'class' => Lieu::class,
-               'choices'=> $longitude,
                'placeholder'=>'longitude (choisir un lieu)',
                'choice_label' => 'longitude',
+               'label' => 'Longitude : ',
+               'mapped' => false,
                'required'=>false
-           ]);
+           ])
+        ;
 
-       };
+        /* $formModifierLieu = function (FormInterface $form, Ville $ville = null) {
+             $lieu = (null === $ville) ? [] : $ville->getLieu();
 
-       $builder->get('lieu')->addEventListener(
-           FormEvents::POST_SUBMIT,
-           function (FormEvent $event) use ($formModifierDetails){
-               $lieu = $event ->getForm()->getData();
-               $formModifierDetails($event->getForm()->getParent(),$lieu);
-           }
-       );*/
+             $form->add('lieu', EntityType::class, [
+                 'class' => Lieu::class,
+                 'choices' => $lieu,
+                 'placeholder' => 'lieu (choisir une ville)',
+                 'choice_label' => 'nom',
+                 'required' => false
+             ]);
+         };
+
+         $builder->get('Ville')->addEventListener(
+             FormEvents::POST_SUBMIT,
+             function (FormEvent $event) use ($formModifierLieu) {
+                 $ville = $event->getForm()->getData();
+                 $formModifierLieu($event->getForm()->getParent(), $ville);
+
+             });
+
+        $formModifierDetails = function (FormInterface $form, Lieu $lieu = null){
+            $rue = (null === $lieu)? [] : $lieu->getRue();
+            $latitude = (null === $lieu)? [] : $lieu->getLatitude();
+            $longitude = (null === $lieu)? [] : $lieu->getLongitude();
+            $form->add('rue', EntityType::class,[
+                'class' => Lieu::class,
+                'choices'=> $rue,
+                'placeholder'=>'rue (choisir un lieu)',
+                'choice_label' => 'rue',
+                'required'=>false
+            ]);
+            $form->add('latitude', EntityType::class,[
+                'class' => Lieu::class,
+                'choices'=> $latitude,
+                'placeholder'=>'latitude (choisir un lieu)',
+                'choice_label' => 'latitude',
+                'required'=>false
+            ]);
+            $form->add('longitude', EntityType::class,[
+                'class' => Lieu::class,
+                'choices'=> $longitude,
+                'placeholder'=>'longitude (choisir un lieu)',
+                'choice_label' => 'longitude',
+                'required'=>false
+            ]);
+
+        };
+
+        $builder->get('lieu')->addEventListener(
+            FormEvents::POST_SUBMIT,
+            function (FormEvent $event) use ($formModifierDetails){
+                $lieu = $event ->getForm()->getData();
+                $formModifierDetails($event->getForm()->getParent(),$lieu);
+            }
+        );*/
     }
 
     public function configureOptions(OptionsResolver $resolver)
