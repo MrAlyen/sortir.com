@@ -3,6 +3,8 @@
 namespace App\Form;
 
 use App\Entity\User;
+use App\Entity\Campus;
+
 use Doctrine\DBAL\Types\JsonType;
 use Doctrine\DBAL\Types\TextType;
 use Symfony\Component\Form\AbstractType;
@@ -14,6 +16,7 @@ use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Validator\Constraints\Length;
 use Symfony\Component\Validator\Constraints\NotBlank;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 
 class RegistrationFormType extends AbstractType
 {
@@ -53,8 +56,9 @@ class RegistrationFormType extends AbstractType
                     ]),
                 ],
             ])
-            ->add('campus', ChoiceType::class, [
-                'label' => 'Campus: '
+            ->add('campus', EntityType::class, [
+                'class' => Campus::class,
+                'choice_label' => 'nom'
             ])
         ;
     }
