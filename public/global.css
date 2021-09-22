@@ -1,15 +1,20 @@
 body{
-    background-color: #B9B9B9;
+    background-image: url(img/bg.jpg);
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-attachment: fixed;
     margin: 0%;
     font-family: Helvetica, Arial, sans-serif;
     color: black;
     font-size: 15px;
     line-height: 15px;
+    padding: 30px;
 }
 main{
-    background-color: #CECECE;
-    padding-top: 1px;
-    padding-bottom: 1px;
+    background-color: rgba(255, 255, 255, 0.3);
+    padding: 20px;
+    margin: 30px;
+    min-height: 70vh;
 }
 li{
     margin-right: 20px;
@@ -39,6 +44,31 @@ ul {
 .logo:hover{
     background: url("img/logoAnimLoopXXS.gif");
 }
+h1{
+    text-align: center;
+    color: rgb(240, 240, 240);
+    text-shadow: 3px 3px black ;
+    margin-bottom: 20px;
+}
+label{
+    margin-right: 10px;
+}
+button{
+    padding:5px;
+    color: white;
+    background: linear-gradient(to top, #3399ff 0%, #000099 100%);
+    font-size: 20px;
+}
+
+button:hover{
+    background: linear-gradient(to top, #67b0fa 0%, #303096 100%);
+}
+
+legend{
+    padding: 10px;
+    color: rgb(240, 240, 240);
+}
+
 @media only screen and (min-width: 800px) {
     body {
         font-size: 20px;

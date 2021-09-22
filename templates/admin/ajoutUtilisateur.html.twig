@@ -1,12 +1,16 @@
 {% extends 'base.html.twig' %}
 
+{% block css %}
+    <link rel="stylesheet" href="{{ asset('css/ajout-utilisateur.css') }}">
+{% endblock %}
+
 {% block body %}
 
 <h1>Ajout d'utilisateur</h1>
 
 
-<div>
-    <h2>Importer des utilisateurs depuis un fichier csv</h2>
+<fieldset>
+    <legend class="titreField">Importer des utilisateurs depuis un fichier csv</legend>
     {{ form_start(csvForm) }}
         {{ form_widget(csvForm) }}
     {{ form_end(csvForm) }}
@@ -14,9 +18,9 @@
     {% if newUser > 0  or updateUser > 0 %}
     <div>
         <p>Utilisateurs ajoutés: {{ newUser }}</p>
-        <p>Utilisateurs mise à jours: {{ updateUser }}</P>
+        <p>Utilisateurs mis à jours: {{ updateUser }}</P>
     </div>
     {% endif %}
-</div>
+</fieldset>
 
 {% endblock %}
