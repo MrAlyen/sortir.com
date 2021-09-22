@@ -13,6 +13,7 @@ use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 use Symfony\Component\Serializer\Normalizer\ObjectNormalizer;
 use Symfony\Component\Serializer\Serializer;
 use Symfony\Component\Serializer\Encoder\CsvEncoder;
+use App\Repository\CampusRepository;
 
 use App\Repository\UserRepository;
 
@@ -53,7 +54,7 @@ class RegistrationController extends AbstractController
     /**
      * @Route("/admin/ajoutUtilisateur", name="app_admin_ajout_utilisateur")
      */
-    public function ajoutUtilisateur(Request $request, UserRepository $userRepository){
+    public function ajoutUtilisateur(Request $request, UserRepository $userRepository,CampusRepository $campusRepository, UserPasswordEncoderInterface $passwordEncoder){
         $form = $this->createForm(ImportCsvFormType::class);
         $form->handleRequest($request);
 
@@ -76,8 +77,6 @@ class RegistrationController extends AbstractController
             
 
             foreach($data as $newUser){
-                
-
                 if(!$user = $userRepository->findOneBy(['email' => $newUser['email']])){
                     $user = new User();
                     $newUserNbr++;
@@ -85,9 +84,15 @@ class RegistrationController extends AbstractController
                     $updateUser++;
                 }
 
+                $campus = $campusRepository->find($newUser['campus_id']);
+
+                $user->setCampus($campus);
                 $user->setEmail($newUser['email']);
-                if($newUser['admin']){
-                    $user->setRoles('["ROLE_ADMIN"]');
+
+                if($newUser['admin'] == true){
+                    $user->setRoles(["ROLE_ADMIN"]);
+                } else {
+                    $user->setRoles([]);
                 }
 
                 $user->setPassword(
