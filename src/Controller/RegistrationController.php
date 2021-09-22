@@ -13,16 +13,14 @@ use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 use Symfony\Component\Serializer\Normalizer\ObjectNormalizer;
 use Symfony\Component\Serializer\Serializer;
 use Symfony\Component\Serializer\Encoder\CsvEncoder;
-use App\Repository\CampusRepository;
+use Symfony\Component\Form\Form;
 
+use App\Repository\CampusRepository;
 use App\Repository\UserRepository;
 
 class RegistrationController extends AbstractController
 {
-    /**
-     * @Route("/register", name="app_register")
-     */
-    public function register(Request $request, UserPasswordEncoderInterface $passwordEncoder): Response
+    public function register(Request $request, UserPasswordEncoderInterface $passwordEncoder): Form
     {
         $user = new User();
         $user->setRoles(["ROLE_ADMIN"]);
@@ -43,30 +41,28 @@ class RegistrationController extends AbstractController
             $entityManager->flush();
             // do anything else you need here, like send an email
 
-            return $this->redirectToRoute('app_login');
         }
 
-        return $this->render('registration/register.html.twig', [
-            'registrationForm' => $form->createView(),
-        ]);
+        return $form;
     }
 
     /**
      * @Route("/admin/ajoutUtilisateur", name="app_admin_ajout_utilisateur")
      */
-    public function ajoutUtilisateur(Request $request, UserRepository $userRepository,CampusRepository $campusRepository, UserPasswordEncoderInterface $passwordEncoder){
-        $form = $this->createForm(ImportCsvFormType::class);
-        $form->handleRequest($request);
+    public function ajoutUtilisateur(Request $request, UserRepository $userRepository,CampusRepository $campusRepository, UserPasswordEncoderInterface $passwordEncoder): Response
+    {
+        $formCsv = $this->createForm(ImportCsvFormType::class);
+        $formCsv->handleRequest($request);
 
         $newUserNbr = 0;
         $updateUser = 0;
 
-        if($form->isSubmitted() && $form->isValid()){
-            $file = $form->get('file')->getData();
+        if($formCsv->isSubmitted() && $formCsv->isValid()){
+            $file = $formCsv->get('file')->getData();
             $fileExtension = pathinfo($file->getClientOriginalName(), PATHINFO_EXTENSION);
             $normalizer = [new ObjectNormalizer];
             $encoder = [
-                new CsvEncoder()
+                new CsvEncoder(),
             ];
 
             $serializer = new Serializer($normalizer, $encoder);
@@ -113,11 +109,13 @@ class RegistrationController extends AbstractController
             }
         }
         
+        $formRegister = $this->register($request, $passwordEncoder);
         
         return $this->render('admin/ajoutUtilisateur.html.twig', [
-            'csvForm' => $form->createView(),
+            'csvForm' => $formCsv->createView(),
             'newUser' => $newUserNbr,
             'updateUser' => $updateUser,
+            'registerForm' => $formRegister->createView(),
         ]);
     }
 }
