@@ -51,7 +51,7 @@ class AuthentificateurAuthenticator extends AbstractLoginFormAuthenticator
         }
 
         // For example:
-        return new RedirectResponse($this->urlGenerator->generate('home')); # modifier home pour la redirection
+        return new RedirectResponse($this->urlGenerator->generate('/sortir/')); # modifier home pour la redirection
     }
 
     protected function getLoginUrl(Request $request): string

@@ -49,12 +49,6 @@ class Sortie
      */
     private $infosSortie;
 
-
-    /**
-     * @ORM\OneToMany(targetEntity=User::class, mappedBy="organisateur")
-     */
-    private $organisateur;
-
     /**
      * @ORM\ManyToMany(targetEntity=User::class, inversedBy="estInscrit")
      */
@@ -76,6 +70,12 @@ class Sortie
      * @ORM\JoinColumn(nullable=false)
      */
     private $siteOrganisateur;
+
+    /**
+     * @ORM\ManyToOne(targetEntity=user::class, inversedBy="organise_sorties")
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $organisateur;
 
     public function __construct()
     {
@@ -160,38 +160,6 @@ class Sortie
         return $this;
     }
 
-
-
-    /**
-     * @return Collection|User[]
-     */
-    public function getOrganisateur(): Collection
-    {
-        return $this->organisateur;
-    }
-
-    public function addOrganisateur(User $organisateur): self
-    {
-        if (!$this->organisateur->contains($organisateur)) {
-            $this->organisateur[] = $organisateur;
-            $organisateur->setOrganisateur($this);
-        }
-
-        return $this;
-    }
-
-    public function removeOrganisateur(User $organisateur): self
-    {
-        if ($this->organisateur->removeElement($organisateur)) {
-            // set the owning side to null (unless already changed)
-            if ($organisateur->getOrganisateur() === $this) {
-                $organisateur->setOrganisateur(null);
-            }
-        }
-
-        return $this;
-    }
-
     /**
      * @return Collection|User[]
      */
@@ -248,6 +216,18 @@ class Sortie
     public function setSiteOrganisateur(?Campus $siteOrganisateur): self
     {
         $this->siteOrganisateur = $siteOrganisateur;
+
+        return $this;
+    }
+
+    public function getOrganisateur(): ?user
+    {
+        return $this->organisateur;
+    }
+
+    public function setOrganisateur(?user $organisateur): self
+    {
+        $this->organisateur = $organisateur;
 
         return $this;
     }

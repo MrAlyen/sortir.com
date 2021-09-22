@@ -66,19 +66,19 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     private $campus;
 
     /**
-     * @ORM\ManyToOne(targetEntity=Sortie::class, inversedBy="organisateur")
-     * @ORM\JoinColumn(nullable=false)
-     */
-    private $organisateur;
-
-    /**
      * @ORM\ManyToMany(targetEntity=Sortie::class, mappedBy="estInscrit")
      */
     private $estInscrit;
 
+    /**
+     * @ORM\OneToMany(targetEntity=Sortie::class, mappedBy="organisateur", orphanRemoval=true)
+     */
+    private $organise_sorties;
+
     public function __construct()
     {
         $this->estInscrit = new ArrayCollection();
+        $this->organise_sorties = new ArrayCollection();
     }
 
 
@@ -231,18 +231,6 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         return $this;
     }
 
-    public function getOrganisateur(): ?Sortie
-    {
-        return $this->organisateur;
-    }
-
-    public function setOrganisateur(?Sortie $organisateur): self
-    {
-        $this->organisateur = $organisateur;
-
-        return $this;
-    }
-
     /**
      * @return Collection|Sortie[]
      */
@@ -265,6 +253,36 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     {
         if ($this->estInscrit->removeElement($estInscrit)) {
             $estInscrit->removeEstInscrit($this);
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Sortie[]
+     */
+    public function getOrganiseSorties(): Collection
+    {
+        return $this->organise_sorties;
+    }
+
+    public function addOrganiseSorty(Sortie $organiseSorty): self
+    {
+        if (!$this->organise_sorties->contains($organiseSorty)) {
+            $this->organise_sorties[] = $organiseSorty;
+            $organiseSorty->setOrganisateur($this);
+        }
+
+        return $this;
+    }
+
+    public function removeOrganiseSorty(Sortie $organiseSorty): self
+    {
+        if ($this->organise_sorties->removeElement($organiseSorty)) {
+            // set the owning side to null (unless already changed)
+            if ($organiseSorty->getOrganisateur() === $this) {
+                $organiseSorty->setOrganisateur(null);
+            }
         }
 
         return $this;
