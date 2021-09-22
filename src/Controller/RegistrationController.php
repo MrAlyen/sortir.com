@@ -89,7 +89,7 @@ class RegistrationController extends AbstractController
                 $user->setCampus($campus);
                 $user->setEmail($newUser['email']);
 
-                if($newUser['admin'] == true){
+                if($newUser['admin'] == 'true'){
                     $user->setRoles(["ROLE_ADMIN"]);
                 } else {
                     $user->setRoles([]);
