@@ -219,12 +219,12 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         return $this;
     }
 
-    public function getCampus(): ?int
+    public function getCampus(): ?Campus
     {
         return $this->campus;
     }
 
-    public function setCampus(int $campus): self
+    public function setCampus(Campus $campus): self
     {
         $this->campus = $campus;
 
