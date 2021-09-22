@@ -19,9 +19,22 @@ main{
 li{
     margin-right: 20px;
 }
+nav li{
+    border-right: 1px solid white;
+    padding-right: 20px;
+}
 ul {
     list-style-type : none;
 }
+nav a{
+    text-decoration: none;
+    color: white;
+}
+nav a:hover{
+    color: rgb(179, 177, 177);
+    font-size: 26px;
+}
+
 .center{
     display: flex;
     justify-content: center;
