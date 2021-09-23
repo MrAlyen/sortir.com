@@ -10,7 +10,7 @@
     <body>
         {% block delheader %}
             <header class="space-between">
-                <a href="{{ path('main_accueil') }}"><div class="logo"><img src="{{ asset('img/logoAnim1.gif') }}" class="logo-display" width="200px"></div></a>
+                <a href="{{ path('app_sortir') }}"><div class="logo"><img alt="logo_sortir" src="{{ asset('img/logoAnim1.gif') }}" class="logo-display" width="200px"></div></a>
                 <nav>
                     <ul class="row">
                         {% if app.user %}
@@ -18,7 +18,7 @@
                         <li><a href="" title="modifier supprimer ajouter une ou des villes"> Villes </a></li>
                         <li><a href="" title="modifier supprimer ajouter une ou des campus"> Campus </a></li>
                             {% endif %}
-                        <li><a href="{{ path('main_accueil') }}" title="accéder a la page d'accueil du site"> Accueil </a></li>
+                        <li><a href="{{ path('app_sortir') }}" title="accéder a la page d'accueil du site"> Accueil </a></li>
                         <li><a href="" title="modifier mon profile"> Mon profil </a></li>
                         <li><a href="{{ path('app_logout') }}" title="Se déconnecter"> Se déconnecter </a></li>
                         {% endif %}
