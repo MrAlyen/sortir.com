@@ -4,6 +4,7 @@ namespace App\Repository;
 
 use App\Entity\Sortie;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+use Doctrine\ORM\Tools\Pagination\Paginator;
 use Doctrine\Persistence\ManagerRegistry;
 
 /**
@@ -17,6 +18,21 @@ class SortieRepository extends ServiceEntityRepository
     public function __construct(ManagerRegistry $registry)
     {
         parent::__construct($registry, Sortie::class);
+    }
+
+    public function sortieFormNowtoDown()
+    {
+
+        $queryBuilder = $this->createQueryBuilder('s');
+       /* $queryBuilder->leftJoin('s.etats','e')
+               ->addSelect('e.libelle');
+        $queryBuilder->leftJoin('s.organisateur','u')
+                ->addSelect('u.pseudo');*/
+        $queryBuilder->addOrderBy('s.dateHeureDebut','DESC');
+        $query = $queryBuilder->getQuery();
+
+
+        return $query->getResult();
     }
 
     // /**
