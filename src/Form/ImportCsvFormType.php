@@ -15,8 +15,6 @@ class ImportCsvFormType extends AbstractType
         $builder
             ->add('file', FileType::class,[
             ])
-            ->add('valider', SubmitType::class, [
-            ])
         ;
     }
 

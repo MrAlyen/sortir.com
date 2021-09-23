@@ -11,7 +11,7 @@ body{
     padding: 30px;
 }
 main{
-    background-color: rgba(255, 255, 255, 0.3);
+    background-color: rgba(255, 255, 255, 0.2);
     padding: 20px;
     margin: 30px;
     min-height: 70vh;
@@ -19,9 +19,22 @@ main{
 li{
     margin-right: 20px;
 }
+nav li{
+    border-right: 1px solid white;
+    padding-right: 20px;
+}
 ul {
     list-style-type : none;
 }
+nav a{
+    text-decoration: none;
+    color: white;
+}
+nav a:hover{
+    color: rgb(179, 177, 177);
+    font-size: 26px;
+}
+
 .center{
     display: flex;
     justify-content: center;
@@ -66,7 +79,34 @@ button:hover{
 
 legend{
     padding: 10px;
-    color: rgb(240, 240, 240);
+    color: white;
+}
+
+input, select{
+    width: 300px;
+    position: relative;
+    top: -5px;
+}
+
+select{
+    text-align: center;
+}
+
+label{
+    display: block;
+    width: 150px;
+    text-align: right;
+}
+
+form > div > *{
+    display: flex;
+    padding: 10px 0;
+    width: 450px;
+    margin: auto;
+}
+
+select{
+    padding: 5px;
 }
 table{
     table-layout: auto;

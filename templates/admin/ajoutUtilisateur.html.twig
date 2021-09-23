@@ -13,14 +13,26 @@
     <legend class="titreField">Importer des utilisateurs depuis un fichier csv</legend>
     {{ form_start(csvForm) }}
         {{ form_widget(csvForm) }}
+         <button type="submit" class="btn">Envoyer</button>
+
+            {% if newUser > 0  or updateUser > 0 %}
+                <div>
+                    <p>Utilisateurs ajoutés: {{ newUser }}</p>
+                    <p>Utilisateurs mis à jours: {{ updateUser }}</P>
+                </div>
+            {% endif %}
     {{ form_end(csvForm) }}
     
-    {% if newUser > 0  or updateUser > 0 %}
-    <div>
-        <p>Utilisateurs ajoutés: {{ newUser }}</p>
-        <p>Utilisateurs mis à jours: {{ updateUser }}</P>
-    </div>
-    {% endif %}
+
+</fieldset>
+
+<fieldset>
+    <legend>Enregistrer un utilisateur</legend>
+
+        {{ form_start(registerForm) }}
+            {{ form_widget(registerForm) }}
+            <button type="submit" class="btn">Envoyer</button>
+        {{ form_end(registerForm) }}
 </fieldset>
 
 {% endblock %}

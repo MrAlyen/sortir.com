@@ -16,15 +16,18 @@
                     <ul class="row">
                         {% if app.user %}
                             {% if is_granted("ROLE_ADMIN") %}
+                            {% endif %}
+                        {% endif %}
+
                         <li><a href="" title="modifier supprimer ajouter une ou des villes"> Villes </a></li>
                         <li><a href="" title="modifier supprimer ajouter une ou des campus"> Campus </a></li>
-                            {% endif %}
-                        <li><a href="{{ path('main_accueil') }}" title="accéder a la page d'accueil du site"> Accueil </a></li>
+                            <!-- remmetre endif  -->
+                        <li><a href="" title="accéder a la page d'accueil du site"> Accueil </a></li>
                         <li><a href="" title="modifier mon profile"> Mon profil </a></li>
                         <li><a href="{{ path('app_logout') }}" title="Se déconnecter"> Se déconnecter </a></li>
-                        {% endif %}
                         <li><a href="{{ path('app_admin_ajout_utilisateur') }}" title="Ajout Utilisateur">Ajout Utilisateur</a></li>
-
+                        <li><a href="{{ path('app_supprimer_user') }}" title="Désactiver / Supprimer un utilisateur">Désactiver - Supprimer un utilisateur</a></li>
+                        <!-- remettre endif -->
                     </ul>
                 </nav>
             </header>

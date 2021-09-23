@@ -1,0 +1,15 @@
+{% extends 'base.html.twig' %}
+
+{% block css %}
+    <link rel="stylesheet" href="{{ asset('css/desactiverSupprimerUser.css') }}">
+{% endblock %}
+
+{% block body %}
+    <h1>Désactiver ou Supprimer un compte utilisateur</h1>
+
+    {{ form_start(desactiveForm) }}
+        {{ form_widget(desactiveForm) }}
+        <button type="submit" class="btn">Valider</button>
+    {{ form_end(desactiveForm) }}
+
+{% endblock %}
