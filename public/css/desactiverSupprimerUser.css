@@ -1,0 +1,29 @@
+#desactive_form_choice{
+    display: flex;
+    margin-top: 10px;
+}
+
+input[type="radio"]{
+    width: 30px;
+}
+
+input[type="radio"] + label{
+    width: auto;
+    padding-right: 20px;
+}
+
+button{
+    display:block;
+    margin: 20px auto;
+}
+
+form{
+    background-color: rgba(255, 255, 255, 0.507);
+    width: 70%;
+    padding: 30px;
+    margin: auto;
+}
+
+h1{
+    margin-bottom: 50px;
+}
