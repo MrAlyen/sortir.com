@@ -36,6 +36,9 @@ class RegistrationController extends AbstractController
                 )
             );
 
+            $user->setRoles([]);
+            $user->setActive(true);
+
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->persist($user);
             $entityManager->flush();
@@ -89,6 +92,12 @@ class RegistrationController extends AbstractController
                     $user->setRoles(["ROLE_ADMIN"]);
                 } else {
                     $user->setRoles([]);
+                }
+
+                if($newUser['active'] == 'true'){
+                    $user->setActive(true);
+                } else {
+                    $user->setActive(false);
                 }
 
                 $user->setPassword(
