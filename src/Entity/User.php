@@ -293,6 +293,9 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         return $this;
     }
 
+
+   
+
     public function getActive(): ?bool
     {
         return $this->active;
@@ -303,5 +306,11 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         $this->active = $active;
 
         return $this;
+    } 
+       public function __toString()
+    {
+        return $this->pseudo;
     }
+
+    
 }

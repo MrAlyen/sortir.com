@@ -1,1 +1,78 @@
 {% extends 'base.html.twig' %}
+
+{% block body %}
+
+    <h3>Filtrer les sorties</h3>
+
+    <div id="Filtre">
+        {{ form_start(filtre) }}
+            {{ form_widget(filtre) }}
+        <br><br><button type="submit" class="btn">Rechercher</button>
+        {{ form_end(filtre) }}
+
+    </div><br><br>
+
+    <table>
+        <tr><th>Nom de la sortie</th><th>Date de la sortie</th><th>Clôture</th>
+            <th>Inscrits/Places</th><th>Etat</th>
+            <th>Inscrit</th>
+            <th>Organisateur</th>
+            <th>Action</th></tr>
+
+        {% for sortie in sorties %}
+            <tr>
+                <td>{{ sortie.nom }}</td><td>{{ sortie.dateHeureDebut|date ('d/m/Y h:m') }}</td><td>{{ sortie.dateLimiteInscription|date ('d/m/Y') }}</td>
+                <td>{{ sortie.estInscrit|length }} / {{sortie.nbInscriptionsMax }}</td><td>{{ sortie.etats }}</td>
+                <td>
+                    {% set inscrit = 'false' %}
+                    {#{% for id in sortie.estInscrit %}
+                        {% if id == app.user.id  %}
+                            {% set inscrit = "true" %}
+                            X
+                        {% else %}
+                            {% set inscrit = "false" %}
+                        {% endif %}
+                    {% endfor %} #}
+                    X
+                </td>
+                <td>
+
+                    <a href="#" title="{{ sortie.organisateur }}">{{ sortie.organisateur }}</a>
+                         {% set organisateur = 'true' %}
+                    {# {% if sortie.organisateur == app.user.pseudo  %}
+                            {% set organisateur = "true" %}
+                        {% else %}
+                            {% set organisateur = "false" %}
+                        {% endif %}#}
+                </td>
+
+                <td>
+                    {% if sortie.etats == 'Activité en cours' or sortie.etats == 'Clôturée' or sortie.etats == 'Ouverte' %}
+                        <a href="#" title="Afficher">Afficher</a>
+                    {% endif  %}
+                    {% if sortie.etats == 'En création' and  organisateur == 'true' %} {#  #}
+                        <a href="#" title="Modifier">Modifier</a>
+                        <a href="#" title="Publier">Publier</a>
+                    {% endif  %}
+                    {% if  inscrit =='true' and organisateur == 'false' %}
+                        <a href="#" title="Se désister">Se désister</a>
+                    {% endif  %}
+                    {%if sortie.etats == 'Ouverte' and  inscrit == 'false' %} {#  #}
+                        <a href="#" title="S'inscrire'">S'inscrire</a>
+                    {% endif  %}
+                    {% if sortie.etats == 'Ouverte'  and sortie.estInscrit|length == 0 and  organisateur == 'true' %}{#  #}
+                        <a href="#" title="Annuler'">Annuler</a>
+                    {% endif  %}
+                </td>
+            </tr>
+        {% endfor %}
+
+    </table><br><br>
+
+    <button><a href="{{ path('main_creer_sortie') }}">Créer une sortie</a></button>
+
+{% endblock %}
+
+{% block javascripts %}
+
+{% endblock %}

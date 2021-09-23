@@ -108,6 +108,17 @@ form > div > *{
 select{
     padding: 5px;
 }
+table{
+    table-layout: auto;
+    border: 1px solid black;
+}
+td{
+    border: 1px solid blue;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    text-align: center;
+}
 
 @media only screen and (min-width: 800px) {
     body {
