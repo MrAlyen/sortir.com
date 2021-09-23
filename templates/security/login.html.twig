@@ -2,7 +2,7 @@
 
 {% block title %}S'identifier{% endblock %}
 
-{% block delheader %}<header class="center"><img src="{{ asset('img/logoAnim1.gif') }}" width="600px"></header>{% endblock %}
+{% block delheader %}<header class="center"><img alt="logo_sortir" src="{{ asset('img/logoAnim1.gif') }}" width="600px"></header>{% endblock %}
 
 {% block body %}
 <form method="post">
@@ -12,7 +12,7 @@
 
     {% if app.user %}
         <div class="mb-3">
-            You are logged in as {{ app.user.username }}, <a href="{{ path('app_logout') }}">Logout</a>
+            You are logged in as {{ app.user.pseudo }}, <a href="{{ path('app_logout') }}">Logout</a>
         </div>
     {% endif %}
     <div class="center">
