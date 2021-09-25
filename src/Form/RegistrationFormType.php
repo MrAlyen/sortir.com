@@ -5,13 +5,11 @@ namespace App\Form;
 use App\Entity\User;
 use App\Entity\Campus;
 
-use Doctrine\DBAL\Types\JsonType;
-use Doctrine\DBAL\Types\TextType;
 use Symfony\Component\Form\AbstractType;
-use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
 use Symfony\Component\Form\Extension\Core\Type\PasswordType;
 use Symfony\Component\Form\Extension\Core\Type\TelType;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Validator\Constraints\Length;
@@ -23,13 +21,13 @@ class RegistrationFormType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('pseudo', \Symfony\Component\Form\Extension\Core\Type\TextType::class, [
+            ->add('pseudo', TextType::class, [
                 'label' => 'Pseudo: '
             ])
-            ->add('prenom', \Symfony\Component\Form\Extension\Core\Type\TextType::class, [
+            ->add('prenom', TextType::class, [
                 'label' => 'Prenom: '
             ])
-            ->add('nom', \Symfony\Component\Form\Extension\Core\Type\TextType::class, [
+            ->add('nom', TextType::class, [
                 'label' => 'Nom: '
             ])
             ->add('telephone', TelType::class, [
