@@ -2,14 +2,6 @@
 
 namespace App\Security;
 
-use Symfony\Component\Security\Core\Exception\AuthenticationException;
-use Symfony\Component\Security\Http\Authenticator\AbstractLoginFormAuthenticator;
-use Symfony\Component\Security\Http\Authenticator\Passport\Badge\CsrfTokenBadge;
-use Symfony\Component\Security\Http\Authenticator\Passport\Badge\UserBadge;
-use Symfony\Component\Security\Http\Authenticator\Passport\Credentials\PasswordCredentials;
-use Symfony\Component\Security\Http\Authenticator\Passport\Passport;
-use Symfony\Component\Security\Http\Authenticator\Passport\PassportInterface;
-
 use App\Entity\User;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\RedirectResponse;
@@ -103,8 +95,7 @@ class AuthentificateurAuthenticator extends AbstractFormLoginAuthenticator imple
             return new RedirectResponse($targetPath);
         }
 
-        // For example : return new RedirectResponse($this->urlGenerator->generate('some_route'));
-        throw new \Exception('TODO: provide a valid redirect inside '.__FILE__);
+        return new RedirectResponse($this->urlGenerator->generate('main_accueil'));
     }
 
     protected function getLoginUrl(): string
@@ -112,3 +103,4 @@ class AuthentificateurAuthenticator extends AbstractFormLoginAuthenticator imple
         return $this->urlGenerator->generate(self::LOGIN_ROUTE);
     }
 }
+
