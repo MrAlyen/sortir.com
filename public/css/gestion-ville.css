@@ -1,0 +1,73 @@
+button{
+    display:block;
+    margin: 20px auto;
+}
+
+input{
+    text-align: center;
+    padding: 5px;
+}
+
+form{
+    background-color: rgba(255, 255, 255, 0.507);
+    width: 70%;
+    padding: 30px;
+    margin: auto;
+}
+
+h1{
+    margin-bottom: 50px;
+}
+
+table{
+    margin: auto;
+}
+
+table button{
+    margin: auto;
+    height: 100%;
+    width: 100%;
+}
+
+.table-container{
+    overflow-y: auto;
+    max-height: 60vh;
+    width: 100px;
+    min-width: 50vw;
+    background-color: rgba(255, 255, 255, 0.507);
+    margin:30px auto;
+    padding: 5px;
+}
+
+td{
+    padding: 10px;
+    min-width: 20%;
+}
+
+.modifier{
+    background: linear-gradient(to bottom, #ff9966 0%, #ffcc66 100%);
+}
+
+.supprimer{
+    background: linear-gradient(to bottom, #ff0000 0%, #cc6600 100%);
+}
+
+.modal{
+    display: none;
+    position: absolute;
+    position: fixed;
+    top:0;
+    left: 0;
+    height: 100vh;
+    width: 100vw;
+    background-color: rgba(216, 232, 247, 0.671);
+    padding: 10vh 10vw;
+}
+
+.modal > div{
+    background-color: rgb(198, 218, 235);
+    height: 80vh;
+    width: 80vw;
+    padding-top: 30vh;
+}
+

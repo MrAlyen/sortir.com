@@ -25,7 +25,7 @@ class Ville
     private $nom;
 
     /**
-     * @ORM\Column(type="integer")
+     * @ORM\Column(type="integer", unique=true)
      */
     private $codePostal;
 
@@ -101,5 +101,9 @@ class Ville
     public function __toString()
     {
         return $this->nom;
+    }
+
+    public function getVille(){
+        return $this;
     }
 }

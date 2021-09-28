@@ -112,6 +112,7 @@ table{
     table-layout: auto;
     border: 1px solid black;
 }
+
 td{
     border: 1px solid blue;
     overflow: hidden;
