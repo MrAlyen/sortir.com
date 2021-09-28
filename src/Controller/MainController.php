@@ -2,11 +2,10 @@
 
 namespace App\Controller;
 
-use App\Entity\Lieu;
-use App\Entity\Ville;
-use App\Form\LieuType;
+
+use App\Form\SortieFilterType;
 use App\Form\SortieType;
-use App\Form\VilleType;
+use App\Repository\SortieRepository;
 use App\Utilities\Tools;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -20,32 +19,33 @@ class MainController extends AbstractController
     /**
      * @Route("/sortir", name="main_accueil")
      */
-    public function accueil(): Response
+    public function accueil(SortieRepository $repository,Request $request): Response
     {
-        return $this->render('main/accueil.html.twig');
-    }
-    /**
-     * @Route("/sortir/creer_sortie", name="main_creer_sortie")
-     */
-    public function creer_sortie(Request $request, EntityManagerInterface $entityManager, Tools $tools): Response
-    {
+        $sorties = $repository->sortieFormNowtoDown();
 
-        $sortie = new Sortie();
-        $sortieform = $this->createForm(SortieType::class, $sortie);
+        $filtre= new Sortie();
+        $filtreForm = $this->createForm(SortieFilterType::class,$filtre);
+        $filtreForm->handleRequest($request);
 
-        $sortieform->handleRequest($request);
-        if ($sortieform->isSubmitted() && $sortieform->isValid()){
+        $filtreActif = null;
 
-            $entityManager->persist($sortie);
-            $entityManager->flush();
-            $this->addFlash('sucess','Votre sortie est bien enregistré');
-            return $this->redirectToRoute('main_accueil');
+        if ($filtreForm->isSubmitted()){
+
+           $filtreActif = $repository->whereFiltre($filtreForm);
+
         }
 
+        if ($filtreActif != null){
+            $tabSorties = $filtreActif;
+        }else{
+            $tabSorties = $sorties;
+        }
 
-        return $this->render('main/creer_sortie.html.twig', [
-            'sortie' => $sortieform->createView(),
+        return $this->render('main/accueil.html.twig',[
 
+            'filtre' => $filtreForm->createView(),
+            'sorties' => $tabSorties
         ]);
     }
+
 }

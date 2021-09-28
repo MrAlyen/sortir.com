@@ -2,27 +2,19 @@
 
 namespace App\Utilities;
 
+use App\Entity\Sortie;
+use App\Entity\User;
+use App\Form\SortieFilterType;
+use App\Repository\SortieRepository;
+use phpDocumentor\Reflection\Types\Integer;
+use PhpParser\Node\Expr\Cast\Int_;
+
+
 class Tools
 {
 
-    public function majEtatSortieFormulaire($dateInscription):int{
-
-        $etat=null;
-
-        if ($dateInscription <= ( new \DateTime())){
-            $etat = 4;
-        }elseif ($dateInscription > ( new \DateTime())){
-            $etat = 2;
-        }
-
-     return $etat;
-    }
-
-    public function majNomLieuId($nomLieu):int{
-       $idLieu=null;
 
 
 
-       return $idLieu;
-    }
+
 }

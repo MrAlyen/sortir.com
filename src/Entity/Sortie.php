@@ -55,7 +55,7 @@ class Sortie
     private $estInscrit;
 
     /**
-     * @ORM\ManyToOne(targetEntity=Etat::class, inversedBy="sortie")
+     * @ORM\ManyToOne(targetEntity=Etat::class, inversedBy="sortie", cascade=null)
      * @ORM\JoinColumn(nullable=false)
      */
     private $etats;
@@ -231,4 +231,6 @@ class Sortie
 
         return $this;
     }
+
+
 }

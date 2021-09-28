@@ -1,0 +1,31 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+
+    {% for details in sortie %}
+        <h1>{{ details.nom }}</h1>
+
+        <p>La sortie est prévu le {{ details.dateHeureDebut|date ('d/m/Y h:m') }} pendant {{ details.Duree }} heures</p>
+        <p>Date limite d'inscription : {{ details.dateLimiteInscription|date ('d/m/Y h:m') }}</p>
+        <p>Pour l'instant : {{ details.estInscrit|length }} inscrits / {{details.nbInscriptionsMax }} max</p>
+        <p>Cette sortie est actuellement : {{ details.etats }}</p>
+        <p>Organisé par : <a href="#" title="{{ details.organisateur }}">{{ details.organisateur }}</a></p>
+        <p>Campus organisateur : {{ details.siteOrganisateur.nom }}</p>
+        <p>Qu'est il prevu : {{ details.infosSortie }}</p>
+        <p>Lieu de RDV :<br><br>{{ details.lieu.nom }}<br><br>{{ details.lieu.rue }}<br><br>{{ details.lieu.ville.codePostal }} {{ details.lieu.ville.nom }}</p>
+        <p>Latitude : {{ details.lieu.latitude }}</p>
+        <p>Longitude : {{ details.lieu.longitude }}</p>
+
+        <button><a href="{{ path('sortie_modif',{'id':details.id}) }}">Modifier</a></button>
+        <button><a href="{{ path('main_accueil') }}">Retour</a></button>
+
+    {% endfor %}
+   {#  {% if (app.user.id == details.organisateur.id) && (details.etats == "En création") %}
+
+    {% endif %}#}
+
+{% endblock %}
+
+{% block javascripts %}
+
+{% endblock %}

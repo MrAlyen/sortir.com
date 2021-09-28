@@ -10,6 +10,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
+use Symfony\Component\Security\Core\Validator\Constraints\UserPassword;
 use Symfony\Component\Serializer\Normalizer\ObjectNormalizer;
 use Symfony\Component\Serializer\Serializer;
 use Symfony\Component\Serializer\Encoder\CsvEncoder;
@@ -20,7 +21,7 @@ use App\Repository\UserRepository;
 
 class RegistrationController extends AbstractController
 {
-    public function register(Request $request, UserPasswordEncoderInterface $passwordEncoder): Form
+    public function register(Request $request, UserPassword $passwordEncoder): \Symfony\Component\Form\FormInterface
     {
         $user = new User();
         $user->setRoles(["ROLE_ADMIN"]);

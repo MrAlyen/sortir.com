@@ -24,6 +24,7 @@ class UserRepository extends ServiceEntityRepository implements PasswordUpgrader
 
     /**
      * Used to upgrade (rehash) the user's password automatically over time.
+     * @throws \Doctrine\ORM\ORMException
      */
     public function upgradePassword(PasswordAuthenticatedUserInterface $user, string $newHashedPassword): void
     {
@@ -34,6 +35,15 @@ class UserRepository extends ServiceEntityRepository implements PasswordUpgrader
         $user->setPassword($newHashedPassword);
         $this->_em->persist($user);
         $this->_em->flush();
+    }
+
+    public function findUser($pseudo){
+
+        $queryBuilder = $this->createQueryBuilder('U');
+        $queryBuilder->andWhere("U.pseudo = '$pseudo'");
+        $query = $queryBuilder->getQuery();
+
+        return $query->getResult();
     }
 
     // /**
