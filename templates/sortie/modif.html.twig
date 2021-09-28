@@ -1,0 +1,16 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h1>Modifier la sortie</h1>
+
+    {{ form_start(modifSortie) }}
+    {{ form_widget(modifSortie) }}
+        <button type="submit" class="submit" name="submit" value="modif">Modifier la sortie</button>
+        <button><a href="{{ path('main_accueil') }}">Retour</a></button>
+    {{ form_end(modifSortie) }}
+
+{% endblock %}
+
+{% block javascripts %}
+
+{% endblock %}

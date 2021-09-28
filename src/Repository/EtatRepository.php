@@ -19,6 +19,15 @@ class EtatRepository extends ServiceEntityRepository
         parent::__construct($registry, Etat::class);
     }
 
+    public function findEtat($libelle){
+
+        $queryBuilder = $this->createQueryBuilder('E');
+        $queryBuilder->andWhere("E.libelle = '$libelle'");
+        $query = $queryBuilder->getQuery();
+
+        return $query->getResult();
+    }
+
     // /**
     //  * @return Etat[] Returns an array of Etat objects
     //  */

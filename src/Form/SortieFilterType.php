@@ -17,14 +17,16 @@ class SortieFilterType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('siteOrganisateur', EntityType::class,[
+            ->add('campus', EntityType::class,[
                 'class'=>Campus::class,
                 'choice_label'=>'nom',
                 'label'=>'Campus : ',
-                'required' => 'false'
+                'mapped' => false,
+                'required' => false
             ])
-            ->add('nom',SearchType::class,[
+            ->add('boutNom',SearchType::class,[
                 'label'=>'Le nom de la sortie contient : ',
+                'mapped' => false,
                 'required' => false
             ])
             ->add('dateDebut', DateTimeType::class,[
@@ -44,7 +46,8 @@ class SortieFilterType extends AbstractType
             ->add('organisateur',CheckboxType::class,[
                 'label' => 'Sortie dont je suis l\'organisatrice/teur',
                 'mapped' => false,
-                'required' => false
+                'required' => false,
+                
             ])
             ->add('inscrit',CheckboxType::class,[
                 'label' => 'Sortie auxquelles je suis inscrit/e',
