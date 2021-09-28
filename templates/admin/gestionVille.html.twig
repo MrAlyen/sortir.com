@@ -1,0 +1,51 @@
+{% extends 'base.html.twig' %}
+
+{% block css %}
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+    <link rel="stylesheet" href="{{ asset('css/gestion-ville.css') }}">
+{% endblock %}
+
+{% block body %}
+    <h1>Ajouter - Supprimer une ville</h1>
+
+    <div class="table-container">
+        <table>
+        {{ form_start(gestionVilleForm) }}
+            {{ form_widget(gestionVilleForm) }}
+            {% for ville in villes %}
+                <tr>
+                    <td>{{ ville.nom() }}
+                    <td>{{ ville.codePostal() }}</td>
+                    <td><button type="button" class="modifier" name="modifier" onclick="openModal({{ ville.id }}, '{{ ville.nom }}', {{ ville.codepOSTAL }} )">Modifier</button></td>
+                    <td><button type="submit" class="supprimer" name="supprimer" value="{{ ville.id }}">Supprimer</button></td>
+                </tr>
+            {% endfor %}
+        {{ form_end(gestionVilleForm) }}
+        </table>
+    </div>
+
+    {{ form_start(ajoutVilleForm) }}
+        {{ form_widget(ajoutVilleForm) }}
+        <button type="submit" class="btn">Ajouter</button>
+    {{ form_end(ajoutVilleForm) }}
+
+    <div class="modal" id="modifierModal">
+        <div>
+            <button class="fermer" name="fermer" onclick='(function(){ document.getElementById("modifierModal").style.display = "none"; })()'>Fermer</button>
+            {{ form_start(modifierVilleForm) }}
+            {{ form_widget(modifierVilleForm) }}
+            <button type="submit" class="btn" name="modifier" id="modifVille">Modifier</button>
+            {{ form_end(modifierVilleForm) }}
+        </div>
+    </div>
+
+    <script>
+        function openModal(id, nom, codePostal){
+            document.getElementsByClassName('ville_nom')[1].value = nom;
+            document.getElementsByClassName('ville_codepostal')[1].value = codePostal;
+            document.getElementsByClassName('ville_id')[1].value = id;
+            document.getElementById('modifVille').value = id;
+            document.getElementById('modifierModal').style.display = "block";
+        }
+    </script>
+{% endblock %}
