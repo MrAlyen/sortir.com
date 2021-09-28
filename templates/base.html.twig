@@ -32,6 +32,15 @@
                 </nav>
             </header>
         {% endblock %}
+
+        {% for label,messages in app.flashes %}
+            {% for message in messages %}
+                <div class="flash - {{ label }}" style="background-color: greenyellow">
+                    {{ message }}
+                </div>
+            {% endfor %}
+        {% endfor %}
+
         <main>
             {% block body %}{% endblock %}
             {% block javascripts %}{% endblock %}

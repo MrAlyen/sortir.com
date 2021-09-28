@@ -1,0 +1,18 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h1>Annuler la sortie</h1>
+
+    {{ form_start(sortie) }}
+    {{ form_widget(sortie) }}
+
+        <button type="submit" class="btn">supprimer</button>
+        <button><a href="{{ path('main_accueil') }}">Retour</a></button>
+
+    {{ form_end(sortie) }}
+
+{% endblock %}
+
+{% block javascripts %}
+
+{% endblock %}

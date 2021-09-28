@@ -1,0 +1,16 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h1>Verification des infos avant publication</h1>
+
+    {{ form_start(sortie) }}
+    {{ form_widget(sortie) }}
+        <button type="publier" class="btn">publier</button>
+        <button><a href="{{ path('main_accueil') }}">Retour</a></button>
+    {{ form_end(sortie) }}
+
+{% endblock %}
+
+{% block javascripts %}
+
+{% endblock %}
