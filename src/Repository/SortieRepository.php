@@ -22,11 +22,10 @@ class SortieRepository extends ServiceEntityRepository
 
     public function sortieFormNowtoDown()
     {
-
         $queryBuilder = $this->createQueryBuilder('s');
-        $queryBuilder->addOrderBy('s.dateHeureDebut','DESC');
+        $queryBuilder->andWhere("s.dateHeureDebut > DATE_SUB(CURRENT_DATE(), 30,'DAY')");
+        $queryBuilder->addOrderBy('s.dateHeureDebut','ASC');
         $query = $queryBuilder->getQuery();
-
 
         return $query->getResult();
     }

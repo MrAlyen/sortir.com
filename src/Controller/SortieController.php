@@ -39,9 +39,18 @@ class SortieController extends AbstractController
         $sortieform = $this->createForm(SortieType::class, $sortie);
 
         $sortieform->handleRequest($request);
+
+
+
         if ($sortieform->isSubmitted() && $sortieform->isValid()){
 
-            $etats = $etatRepository->findEtat('Ouverte');
+
+            if ($sortieform->get('saveAndAdd')->isClicked()){
+                $etats = $etatRepository->findEtat('En création');
+            }else{
+                $etats = $etatRepository->findEtat('Ouverte');
+            }
+
             $users = $userRepository->findUser('AdminNior');
 
             foreach ( $etats as $etat ){
@@ -90,7 +99,7 @@ class SortieController extends AbstractController
     public function modif(Request $request,SortieRepository $sortieRepository,int $id,EntityManagerInterface $entityManager):Response{
 
         $sortie = $sortieRepository->find($id);
-        $modifSortie = $this->createForm(SortieType::class, $sortie);
+        $modifSortie = $this->createForm(SortieModifType::class, $sortie);
 
         $modifSortie->handleRequest($request);
         if ($modifSortie->isSubmitted() ){
@@ -110,16 +119,21 @@ class SortieController extends AbstractController
     /**
      * @Route("/publish/{id}", name="_publish")
      */
-    public function publish(Request $request,SortieRepository $sortieRepository,int $id,EntityManagerInterface $entityManager):Response{
+    public function publish(Request $request,EtatRepository $etatRepository,SortieRepository $sortieRepository,int $id,EntityManagerInterface $entityManager):Response{
 
         $sortie = $sortieRepository->find($id);
-        $sortieform = $this->createForm(SortieType::class, $sortie);
+        $sortieform = $this->createForm(SortieModifType::class, $sortie);
 
 
         $sortieform->handleRequest($request);
         if ($sortieform->isSubmitted() && $sortieform->isValid()){
 
-            $sortie->getEtats()->setLibelle('Ouverte');
+            $etats = $etatRepository->findEtat("Ouverte");
+
+            foreach ($etats as $etat){
+                $sortie->setEtats($etat);
+            }
+
             $entityManager->persist($sortie);
 
             $entityManager->flush();
@@ -139,7 +153,7 @@ class SortieController extends AbstractController
     public function cancel(Request $request,SortieRepository $sortieRepository,int $id,EntityManagerInterface $entityManager):Response{
 
         $sortie = $sortieRepository->find($id);
-        $sortieform = $this->createForm(SortieType::class, $sortie);
+        $sortieform = $this->createForm(SortieModifType::class, $sortie);
 
         $sortieform->handleRequest($request);
         if ($sortieform->isSubmitted() && $sortieform->isValid()){

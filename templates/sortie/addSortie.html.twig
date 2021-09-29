@@ -1,28 +1,21 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}enregistrer un utilisateur{% endblock %}
+{% block title %}Creer une sortie{% endblock %}
 
 {% block body %}
     <h1>Créer une sortie</h1>
 
     {{ form_start(sortie) }}
         {{ form_widget(sortie) }}
-            <button id="submit" type="submit" class="btn" value="publier">Publier la sortie</button>
-            <button id="submit" type="submit" class="btn" value="enregistrer">Enregistrer la sortie</button>
             <button type="reset" class="btn">Annuler</button>
     {{ form_end(sortie) }}
 {% endblock %}
 
 {% block javascripts %}
-    <script>
-        let maj = document.getElementById("sumit");
-        maj.addEventListener("click",function (){
 
-        })
-    </script>
-    {#  <script>
+      {#  <script>
         window.onload = () => {
-           let ville = document.querySelector("#sortie_Ville");
+           let ville = document.querySelector("#sortie_ville");
 
            ville.addEventListener("change",function(){
                let form = this.closest("form");
@@ -32,10 +25,10 @@
                   method:form.getAttribute("method"),
                    body:data,
                    headers:{
-                      "Content-type": "application/x-www-form-urlencoded; charset:UTF-8"
+                      "Content-Type": "application/x-www-form-urlencoded; charset:UTF-8"
                    }
                })
-               .then(response=>response.text())
+               .then(response => response.text())
                .then(html=>{
                    let content = document.createElement("html");
                    content.innerHTML = html;
