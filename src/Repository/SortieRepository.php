@@ -30,6 +30,7 @@ class SortieRepository extends ServiceEntityRepository
         return $query->getResult();
     }
 
+
     public function whereFiltre($filtreForm){
 
         $queryBuilder = $this->createQueryBuilder('s');

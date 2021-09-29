@@ -2,7 +2,7 @@
 
 {% block body %}
 
-    <h3>Filtrer les sorties</h3>
+    <h1>Filtrer les sorties</h1>
 
     <div id="Filtre">
         {{ form_start(filtre) }}
@@ -10,7 +10,9 @@
         <br><br><button type="submit" class="btn">Rechercher</button>
         {{ form_end(filtre) }}
 
-    </div><br><br>
+    </div><br>
+
+    <h1>Sortie les plus ressentent</h1><br><br>
 
     <table>
         <tr><th>Nom de la sortie</th><th>Date de la sortie</th><th>Clôture</th>
@@ -29,12 +31,13 @@
                     {#{% for id in sortie.estInscrit %}
                         {% if id == app.user.id  %}
                             {% set inscrit = "true" %}
-                            X
+                            OUI
                         {% else %}
                             {% set inscrit = "false" %}
+                            NON
                         {% endif %}
                     {% endfor %}#}
-                    X
+                    OUI
                 </td>
                 <td>
 
@@ -62,7 +65,7 @@
                     {%if sortie.etats == 'Ouverte' and  inscrit == 'false' %}
                         <a href="#" title="S'inscrire'">S'inscrire</a>
                     {% endif  %}
-                    {% if sortie.etats == 'Ouverte'  and sortie.estInscrit|length == 0 and  organisateur == 'true'  %}
+                    {% if (sortie.etats == 'Ouverte'  and sortie.estInscrit|length == 0 and  organisateur == 'true')  %}{# or (app.user.role == 'admin') #}
                         <a href="{{ path('sortie_cancel',{'id':sortie.id}) }}" title="Annuler'">Annuler</a>
                     {% endif  %}
                 </td>
