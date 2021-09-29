@@ -21,7 +21,47 @@ use App\Repository\UserRepository;
 
 class RegistrationController extends AbstractController
 {
-    public function register(Request $request, UserPassword $passwordEncoder): \Symfony\Component\Form\FormInterface
+    /**
+     * @Route("/register", name="app_register")
+     */
+    public function register(Request $request, UserPasswordEncoderInterface $passwordEncoder): Response
+    {
+        $user = new User();
+        $form = $this->createForm(RegistrationFormType::class, $user);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            // encode the plain password
+            $user->setPassword(
+                $passwordEncoder->encodePassword(
+                    $user,
+                    $form->get('plainPassword')->getData()
+                )
+            );
+
+            $entityManager = $this->getDoctrine()->getManager();
+            $entityManager->persist($user);
+            $entityManager->flush();
+
+            // generate a signed url and email it to the user
+            $this->emailVerifier->sendEmailConfirmation('app_verify_email', $user,
+                (new TemplatedEmail())
+                    ->from(new Address('pavie.sylvain@xn--univers-athl-meb.fr', 'Sylvain'))
+                    ->to($user->getEmail())
+                    ->subject('Please Confirm your Email')
+                    ->htmlTemplate('registration/confirmation_email.html.twig')
+            );
+            // do anything else you need here, like send an email
+
+            return $this->redirectToRoute('main_home');
+        }
+
+        return $this->render('registration/register.html.twig', [
+            'registrationForm' => $form->createView(),
+        ]);
+    }
+
+    public function ajouter($request, $passwordEncoder): \Symfony\Component\Form\FormInterface
     {
         $user = new User();
         $user->setRoles(["ROLE_ADMIN"]);
@@ -117,7 +157,7 @@ class RegistrationController extends AbstractController
             }
         }
         
-        $formRegister = $this->register($request, $passwordEncoder);
+        $formRegister = $this->ajouter($request, $passwordEncoder);
         
         return $this->render('admin/ajoutUtilisateur.html.twig', [
             'csvForm' => $formCsv->createView(),
