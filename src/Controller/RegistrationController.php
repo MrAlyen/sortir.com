@@ -130,7 +130,7 @@ class RegistrationController extends AbstractController
                 if($newUser['admin'] == 'true'){
                     $user->setRoles(["ROLE_ADMIN"]);
                 } else {
-                    $user->setRoles([]);
+                    $user->setRoles(["ROLE_USER"]);
                 }
 
                 if($newUser['active'] == 'true'){
