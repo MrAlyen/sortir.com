@@ -8,6 +8,15 @@
         <p>La sortie est prévu le {{ details.dateHeureDebut|date ('d/m/Y h:m') }} pendant {{ details.Duree }} heures</p>
         <p>Date limite d'inscription : {{ details.dateLimiteInscription|date ('d/m/Y h:m') }}</p>
         <p>Pour l'instant : {{ details.estInscrit|length }} inscrits / {{details.nbInscriptionsMax }} max</p>
+        <p>Est inscrit : 
+            {% for element in details.estInscrit %}
+               <a href="#" title="{{ element.pseudo }}">{{ element.pseudo }}</a>
+            {% endfor %}
+        
+        
+        </p>
+        
+        
         <p>Cette sortie est actuellement : {{ details.etats }}</p>
         <p>Organisé par : <a href="#" title="{{ details.organisateur }}">{{ details.organisateur }}</a></p>
         <p>Campus organisateur : {{ details.siteOrganisateur.nom }}</p>
