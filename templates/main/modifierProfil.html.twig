@@ -1,0 +1,20 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+<h1>Mon profil</h1>
+    {{ form_start(profil) }}
+    {{ form_widget(profil) }}
+    <form method="post">
+        <div>
+            <label for="passe">Nouveau mot de passe: </label>
+            <input type="password" id="passe" name="passe">
+        </div>
+        <div>
+            <label for="passe2">Comfirmer le nouveau mot de passe: </label>
+            <input type="password" id="passe2" name="passe2">
+        </div>
+        <button type="submit" class="submit" name="submit" value="modif">Modifier mon profil</button>
+        <button><a href="{{ path('main_accueil') }}">Retour</a></button>
+    </form>
+    {{ form_end(profil) }}
+{% endblock %}
