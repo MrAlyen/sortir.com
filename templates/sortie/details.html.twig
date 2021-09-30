@@ -12,7 +12,11 @@
             {% for element in details.estInscrit %}
                <a href="#" title="{{ element.pseudo }}">{{ element.pseudo }}</a>
             {% endfor %}
+        
+        
         </p>
+        
+        
         <p>Cette sortie est actuellement : {{ details.etats }}</p>
         <p>Organisé par : <a href="#" title="{{ details.organisateur }}">{{ details.organisateur }}</a></p>
         <p>Campus organisateur : {{ details.siteOrganisateur.nom }}</p>
