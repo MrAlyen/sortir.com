@@ -4,22 +4,23 @@ namespace App\Controller;
 
 
 use App\Form\SortieFilterType;
-use App\Form\SortieType;
+use App\Repository\EtatRepository;
 use App\Repository\SortieRepository;
-use App\Utilities\Tools;
+use App\Repository\UserRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use App\Entity\Sortie;
+use App\Entity\User;
 
 class MainController extends AbstractController
 {
     /**
      * @Route("/sortir", name="main_accueil")
      */
-    public function accueil(SortieRepository $repository,Request $request): Response
+    public function accueil(SortieRepository $repository,UserRepository $userRepository,Request $request,EtatRepository $etatRepository): Response
     {
         $sorties = $repository->sortieFormNowtoDown();
 
@@ -30,8 +31,9 @@ class MainController extends AbstractController
         $filtreActif = null;
 
         if ($filtreForm->isSubmitted()){
-
-           $filtreActif = $repository->whereFiltre($filtreForm);
+            $user = $this->getUser();
+            $userId = $user->getId();
+           $filtreActif = $repository->whereFiltre($filtreForm,$userId,$etatRepository);
 
         }
 
@@ -44,8 +46,27 @@ class MainController extends AbstractController
         return $this->render('main/accueil.html.twig',[
 
             'filtre' => $filtreForm->createView(),
-            'sorties' => $tabSorties
+            'sorties' => $tabSorties,
+            "controller"=>$this
         ]);
+    }
+
+    public function inscrire(int $id){
+
+        $entityManager = $this->getDoctrine()->getManager();
+        $sortieRepository = $entityManager->getRepository(Sortie::class);
+
+
+        $user =  $this->getUser();
+        $sortie = $sortieRepository->find($id);
+
+        $sortie->addEstInscrit($user);
+
+        $entityManager->persist($sortie);
+        $entityManager->flush();
+        $this->addFlash('sucess','Vous etes bien inscrit à la sortie');
+
+
     }
 
 }

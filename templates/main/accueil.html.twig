@@ -67,10 +67,10 @@
                         <a href="{{ path('sortie_publish',{'id':sortie.id}) }}" title="Publier">Publier</a>
                     {% endif  %}
                     {% if  inscrit =='true' and organisateur == 'false' %}
-                        <a href="#" title="Se désister">Se désister</a>
+                        <a href="{{ path('sortie_desincrire',{'id':sortie.id}) }}" title="Se désister">Se désister</a>
                     {% endif  %}
                     {%if sortie.etats == 'Ouverte' and  inscrit == 'false' %}
-                        <a href="#" title="S'inscrire'">S'inscrire</a>
+                        <a href="{{ path('sortie_inscrire',{'id':sortie.id}) }}" title="S'inscrire">S'inscrire</a>
                     {% endif  %}
                     {% for role in app.user.roles %}
                         {% if (sortie.etats == 'Ouverte'  and sortie.estInscrit|length == 0 and  organisateur == 'true') or (sortie.etats == 'En création' and  organisateur == 'true') or (role == "ROLE_ADMIN") %}
