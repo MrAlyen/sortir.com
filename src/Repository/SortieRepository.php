@@ -6,6 +6,7 @@ use App\Entity\Sortie;
 use App\Entity\User;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
+use Symfony\Component\HttpFoundation\Request;
 
 /**
  * @method Sortie|null find($id, $lockMode = null, $lockVersion = null)
@@ -31,7 +32,7 @@ class SortieRepository extends ServiceEntityRepository
     }
 
 
-    public function whereFiltre($filtreForm){
+    public function whereFiltre($filtreForm, $userId, $etatRepository){
 
         $queryBuilder = $this->createQueryBuilder('s');
 
@@ -60,26 +61,24 @@ class SortieRepository extends ServiceEntityRepository
         }
 
         if ( $filtreForm->get('organisateur')->getData()!= null){
-            $user = new User();
-            $organisateurId = 4 ; //$user ->getId();
-            $queryBuilder->andWhere("s.organisateur = '$organisateurId' ");
+
+            $queryBuilder->andWhere("s.organisateur = '$userId' ");
         }
 
         if ( $filtreForm->get('inscrit')->getData()!= null){
-            $user = new User();
-            $userEstInscrit = 4 ; //$user ->getEstInscrit();
-            $queryBuilder->andWhere("s.id = '$userEstInscrit' ");
+
+            $queryBuilder->andWhere("s.id = '$userId' ");
         }
 
         if ( $filtreForm->get('pasInscrit')->getData()!= null){
-            $user = new User();
-            $userEstInscrit = 4 ; //$user ->getEstInscrit();
-            $queryBuilder->andWhere("s.id != '$userEstInscrit' ");
+
+            $queryBuilder->andWhere("s.id != '$userId' ");
         }
 
         if ($filtreForm->get('passee')->getData()!= null){
-            $passeeCheck = 3;
-            $queryBuilder->andWhere("s.etats = '$passeeCheck' ");
+            $etat = $etatRepository->findEtat('Clôturée');
+            $etatId = $etat[0]->getId();
+            $queryBuilder->andWhere("s.etats = '$etatId' ");
         }
 
         $query = $queryBuilder->getQuery();
