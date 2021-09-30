@@ -40,8 +40,6 @@ class SortieController extends AbstractController
 
         $sortieform->handleRequest($request);
 
-
-
         if ($sortieform->isSubmitted() && $sortieform->isValid()){
 
 
@@ -51,17 +49,20 @@ class SortieController extends AbstractController
                 $etats = $etatRepository->findEtat('Ouverte');
             }
 
-            $users = $userRepository->findUser('AdminNior');
+            
+            $user =  $this->getUser();
+
+            
 
             foreach ( $etats as $etat ){
                 $sortie->setEtats($etat);
             }
             $idCampus=null;
 
-            foreach ( $users as $user ) {
+            
                 $sortie->setOrganisateur($user);
                 $idCampus = $sortie->getOrganisateur()->getCampus()->getId();
-            }
+            
 
             $campus = $campusRepository->findCampus($idCampus);
 
